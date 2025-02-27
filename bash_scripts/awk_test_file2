@@ -1,0 +1,12 @@
+BEGIN{
+print "Users and Their corresponding home"
+print "Username \t Homepath"
+print "---------\t---------"
+FS=":"
+}
+{
+print $1 "\t" $6
+}
+END{
+print "The complete user details displayed"
+}

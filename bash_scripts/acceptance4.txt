@@ -1,0 +1,13 @@
+From: Program commite <pc@event.org>
+To: Santa Claus <sclaus@northpole.org>
+Subject: Your presentation proposal
+
+Dear Santa
+
+Thank you for your presentation proposal: 
+	"Efficient list-making"
+We are pleased to inform you that your proposal has been successful!
+We will contact you shortly with futher information about the event schedule.
+
+Thank you,
+The program Committe

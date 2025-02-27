@@ -1,0 +1,184 @@
+#redirection
+cat file1 file2 file3 > test.log 2>&1 # third file doesn't exist
+cat file1 file2 file3 1> out.log 2> error.log # third file doesn't exist
+#cut
+cut student_info -f2,3 >tmp
+cat student_info | cut -f2,3 >tmp
+tail -1 /etc/passwd | cut -d ":" -f1
+cut -d ":" -f1 /etc/passwd
+date | cut -d " " -f1 # Print only first 3 characters
+date | cut -c 1-3 # Print only first 3 characters, 2 method
+echo "Hello World" | cut -c 1-5 # Print only 5 characters
+#tr
+tr "unixl" "z" < test2 # Replace every matched character to target
+#sed
+cat test2 | sed "s/Linux/z/"
+tr "[a-z]" "[A-Z]" < test2
+cat student_info | tr "\t" ":" > test3
+tr -d "aeiou" < test2
+cat test2 | tr -d "[0-9]"
+tr -d "[0-9]" < $fname > delete_result
+# head & tail, sed
+cat -n  test2 | head -10 | tail -1
+sed -n '7,12p' test2
+cat -n emp.txt | sed -n '2,6p'
+# ../../ copy commands
+cp sample /home/cloud_user/lessons/abc/b/b1/
+cp sample ../../../b/b1/
+cp ../../a/a1/c1/sample .
+# LS & Grep
+ls -l | grep "^-" | wc -l
+ls -l | grep "^d" | wc -l
+ls -a | grep "^[.]"
+ls -l *.sh
+ls ??
+ls s*e
+ls [fpt]* # Print only files that names are started from mentioned char.
+ls z? #Match only one symbol
+ls z* #Match a few symbols
+#
+egrep "python|redhat" test
+grep -i "shell" test | wc -l
+grep -ic "shell" test
+grep -o "shell" test # A word pattern shouldn't be concatenate with another word
+grep -v "shell" test # Exclude word pattern match
+grep -ivc "shell" test
+# Egrep
+# a[aeiou]+c
+a[0-9]+c # a7c, a78c, a889c.
+# \s - search for space
+egrep "\w+\s\w+\s\w+" test
+egrep "[a-zA-Z0-9]+\s[a-zA-Z0-9]+\s[a-zA-Z0-9]+" test
+egrep "a[^a-zA-Z0-9]+c" egrep_test-1 # Equals a c, a&c, a%c, a%^c
+egrep "a[a-zA-Z0-9]{2,3}+c" egrep_test-1
+egrep "[6-9][0-9]{9}" egrep_test-2
+egrep "\w+[@]\w+[.][a-z]+" egrep_test-3
+egrep "java|python|shell" test2
+egrep "java|python|shell|[0-9]{3,}" test2
+egrep "[java]{3,}" test2
+egrep -i "^\<shell\>$" sed_test-1
+egrep "^shell.*shell$" sed_test-1
+egrep -v "^$" sed_test-1
+grep -w cloud_user /etc/passwd
+egrep "^shell" test
+egrep "shell$" test
+egrep "^\<shell\>"
+egrep "^shell$" test2
+egrep "^shell|shell$" test2
+egrep "^shell$" test
+^shell.*shell$
+egrep "^[shell]" test2
+egrep "^[^shell]" test2
+egrep "^[^shell]" test2
+egrep "^$" test2
+egrep -v "^$" test2
+sed -n "/shell/p" test
+sed -n "/^shell/p" test2
+sed -n "1,6p" test
+sed -n "6p" test
+cat -n test2 |sed "2,10 s/shell/bash/gi"
+sed "/start/,/end/ s/shell/bash/gi" test2 # start - end strings must be present on the required range of strings
+sed "3,/end/ s/shell/bash/gi" test2
+sed "/start/,15 s/shell/bash/gi" test2
+sed "/end/q" test2
+sed -n "/start/p" test2
+sort sort_test_file
+sort -r sort_test_file
+sort -u sort_test_file
+sort -n sort_test_file3 # sort numbers instead of strings
+sort -c sort_test_file
+sort sort_test_file | uniq
+sort sort_test_file | uniq -u
+sort sort_test_file | uniq -d
+sort sort_test_file | uniq -c
+diff diff_test_file1 diff_test_file3
+comm diff_test_file1 diff_test_file3 # first field retains difference from first file, second field from second file, third field contains same fields
+comm -12 diff_test_file1 diff_test_file3
+comm -23 diff_test_file1 diff_test_file3 # substract fields, print only remaining fields.
+# AWK
+awk '/manager/{print}' emp.txt
+awk '/manager/{print $2,$4}' emp.txt
+awk '$2 ~ /manager/{print $0}' emp.txt
+awk '$2 !~ /manager/{print $0}' emp.txt
+awk '$0 ~ /manager/{print $0}' emp.txt # Resolution of the task, find all words with "manager"
+awk '{print NR,$0}' emp.txt
+awk '{print NF,$0}' emp.txt
+awk '{print $1,$NF}' emp.txt
+awk 'NR==3 {print NR, $0}' emp.txt
+awk 'NR==3 {print $NR, $0}' emp.txt # without numeration of records
+awk 'NR==3,NR==6 {print NR, $0}' emp.txt
+awk '{print NR "-" $0}' emp.txt
+awk '/^a/ {print $0}' emp.txt
+awk '$NF ~ /\<[0-9]{4}\>/{print $0}' emp.txt
+awk -F ":" '{print $1}' /etc/passwd
+awk -F ":" '$1 ~ /\<cloud_user\>/{print $1}' /etc/passwd
+echo "Hello Shell" | awk '{$2="python"; print $0}'
+awk -F ":" '{print $1,$6}' /etc/passwd
+awk -F ":" -f awk_test_file /etc/passwd
+awk -F ":" -f awk_test_file2 /etc/passwd # Work with awk_test_file2 and /etc/passwd
+#Find
+find ./abc/ -name s1.sh
+find ./abc/ -name *.sh
+find ./abc/ -name "*.sh" -exec rm {} \;
+touch -d "wed, 1 march 2017 12:30:00" test_specific_date_file.txt
+find . -mtime +90 -exec ls -l {} \;
+find ./abc/ -mtime +90 -exec  mv {} {}.old \;
+# Arrays
+# Bash functions
+type myfunc | sed '1d'
+set | sed -n '/^myfunc ()/,/^}/p'
+# Uncomfartble function definition
+
+[[ $NO_EXIT -eq 1 ]] && exit() { true; }
+:(){ echo ":"; }; :
+#AWK additional
+awk 'NR==1;NR>1{print ($2=="F" ? ($1-$2) / 1.8 : $1)"\tC"}' awk_list_c.txt
+awk 'NR==1;NR>1{print "First column item:" $1 "Second column item:" $2}' awk_list_c.txt
+awk 'NR==1;NR>1{print ($2=="F" ? ($1-$2) / 1.8 : $1)}' awk_list_c.txt
+awk 'NR==1;NR>1{printf("%.1f\t%c\n",($2=="F" ? ($1-32) / 1.8 : $1),"C")}' awk_list_c.txt
+awk 'NR==1;NR>1{print ($2=="F" ? ($1-32) / 1.8 : $1) "\tC"}' awk_list_c.txt
+echo "col1-481-col2-981-col3" | awk -F '-[0-9]{3}' '{print $1 " " $2 " "$3}'
+echo -e "hello\nworld" | awk '(NR==2){print $0}'
+echo -e "hello\nthere\nworld"| awk '($0 ~ /l/){print $0}'
+echo -e "acb def\nsomething else" | awk '(length($1) > 5) {print $2}'
+echo -e "a a a a\na a a a\na a a a\na a hello_there a" | awk '(NR==4){
+  n_chrs = split($3, individual_characters, "")
+  for (i=1; i <= n_chrs; i++){
+    printf("Here is character number %d : %c\n", i, individual_characters[i]);
+  }
+}
+
+awk '($0 ~ /e$/){print $0}' awk.animals.txt
+awk '$0 ~ /e$/{print $0}' awk.animals.txt
+awk '/e$/{print $0}' awk.animals.txt
+awk '/e$/{print}' awk.animals.txt
+awk '/e$/' awk.animals.txt
+# AWK vs EGREP
+awk '/e$/' awk.animals.txt | grep -e "e$" awk.animals.txt
+awk 'gsub(/e$/, "zzzz")' awk.animals.txt # only matched records will be printed
+awk '{gsub(/e$/, "zzzz"); print}' awk.animals.txt
+awk '
+    BEGIN{print "I run once, when awk starts up."}
+    END{print "I run once when awk is about to exit."}
+' awk_list_c.txt
+awk '
+    BEGIN{temp_sum=0; total_records=0; print "Begin calculating average temperature."}
+    $2=="F"{temp_sum+=($1-32) / 1.8 ; total_records+=1;}
+    $2=="C"{temp_sum+=$1; total_records+=1;}
+    END{print "Average temperature: "(temp_sum/total_records) C" = "(temp_sum)" / "(total_records)}' awk_list_c.txt
+awk 'BEGIN{FS=":"}{print $1}' /etc/passwd
+awk 'BEGIN{FS=":"}{print $1}END{print "Last record"}' /etc/passwd
+awk 'BEGIN{FS=":"} ! /\/sbin\/nologin/ {print $1}' /etc/passwd
+awk '$1 > 50 {print}' awk_pattern_match.txt
+awk '/^a/ {print $1}' emp.txt
+#Doesn't work awk 'function square(x) { return xx } { print $1, square($1) }' awk_pattern_match.txt
+awk -F "," '{print $2}' awk_proposal.csv
+awk '{ for (i=1; i <= NF; i++) count[$i]++} END{for (word in count) print word, count[word]}' awk_email_template.txt
+awk 'FNR==NR { array[$1]=$2; next } { print $1, array[$1]}' awk_pattern_match.txt awk_email_template.txt
+awk 'length($0) > 10 {print}' awk_email_template.txt
+awk -F "," '{printf "%-15s%-10s\n", $1, $2}' awk_proposal.csv # %-№ - defines a number of whitespaces between fields
+awk '{ print $9 }' access.log | sort | uniq -c
+awk '{ gsub(/[^0-9,]/, ""); print }' awk_proposal.csv
+awk '{ scores [$1]+=$4; counts[$1]++ } END { for (student in scores) print student, scores[student] / counts[student] }' emp.txt
+#Join feature in AWK. At first, a second file value is added to the $0 string, after that the field required to concate from first file is taken.
+awk 'NR==FNR { array[$1]=$4; next } { print $0, array[$1] }' emp.txt emp2.txt

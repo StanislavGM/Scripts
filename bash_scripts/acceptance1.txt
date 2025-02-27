@@ -1,0 +1,13 @@
+From: Program commite <pc@event.org>
+To: Harry Potter <hpotter@howwarts.edu>
+Subject: Your presentation proposal
+
+Dear Harry
+
+Thank you for your presentation proposal: 
+	"Defeating your nemesis in 3 easy steps"
+We are pleased to inform you that your proposal has been successful!
+We will contact you shortly with futher information about the event schedule.
+
+Thank you,
+The program Committe

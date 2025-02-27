@@ -1,0 +1,6 @@
+#Default delimiter \t - tabspace
+sid	sname	scourse	slocation
+101	John	shell	US
+102	Ravi	perl	UK
+103	Siri	Java	India
+104	Ramu	perl	India
